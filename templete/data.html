@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data</title>
+</head>
+<body>
+
+
+    <div>Data Page</div>
+
+
+    {% for value in data %}
+        <p>FirstName : {{value.fname}}</p>
+        <p>LastName : {{value.lname}}</p>
+        <p>Username : {{value.username}}</p>
+        <p>Email : {{value.email}}</p>
+        <p>Password : {{value.password}}</p>
+        <P>*****************************</P>
+    {% endfor %}
+</body>
+</html>
