@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="row">
+    <form method="post" class="col-12 col-md-5">
+        {% csrf_token %}
+        <h3>Add New Post </h3>
+        <label class="col-12 col-md-3">Add Post</label><input class="" type="text" name="posttxt" required style="width:75%"/><br>
+        <label class="col-12 col-md-3">Date</label><input class="" type="date" name="date" style="width:75%" required/><br>
+        <label class="col-12 col-md-3">Time</label><input class="" type="time" name="time" style="width:75%" required/><br>
+        <input type="submit" class="col-md-4 btn btn-primary" value="Add Post" style="float:right">
+    </form>
+    <div class="col-12 col-md-1"></div>
+    <form method="post" class="col-12 col-md-5">
+        {% csrf_token %}
+        <h3>Serach Post From Date</h3>
+        <label class="col-12 col-md-3">Starting Date</label><input type="date" name="startingDate" style="width:75%" required/><br>
+        <label class="col-12 col-md-3">Ending Date</label><input type="date" name="endingDate" style="width:75%" required/><br>
+        <input type="submit" name="search" value="Serach" class="col-md-5 btn btn-primary" style="float:right">
+    </form>
+    
+    </div>
+
+
+    <div class="container">
+        <h3>News Feed</h3>
+        {% for post in Allpostfeedback %}
+        <p>{{post.txtfield}}</p>
+        <p>{{post.date}}</p>
+        <p>{{post.time}}</p>
+
+
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal{{post.index}}" value=""  style="width:100px">Edit Post</button>
+        <form method="POST">
+            {% csrf_token %}
+            <input name="indexKey" value="{{post.index}}" hidden/>
+            <input type="submit" class="btn btn-danger btn-sm" name="delete" id="delete" value="delete post" style="width:100px">
+        </form>
+
+        <div class="modal fade model-sm" id="myModal{{post.index}}" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5>Edit Post</h5>
+                        <!--<label name="indexKey">{{post.index}}</label>-->
+                        
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <p><input name="editabletxt" type="text" value="{{post.txtfield}}"></p>
+                            <input name="indexKey" value="{{post.index}}" hidden/>
+                            <input type="submit" value="Save Changes" name="edit"/>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+          <hr style="border:ridge">
+
+        {% endfor %}
+    </div>
+</body>
+</html>
